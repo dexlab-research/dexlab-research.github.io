@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#FAF7F0" />
+  <meta name="theme-color" content="#FAF3EA" />
   <title>DexLab — Imperial College London</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* exact pi.ai colors */
-      --bg:        #FAF3EA;   
-      --ink:       #1A4631;   
-      --ink-2:     #3D6B54;   
-      --muted:     #8AAB97;   
-      --rule:      #E8DDD0;   
-      --col:       580px;
+      --bg:        #FAF3EA;
+      --ink:       #1A4631;
+      --ink-2:     #3D6B54;
+      --muted:     #8AAB97;
+      --rule:      #E8DDD0;
+      --card-bg:   #FAF3EA;
+      --card-border: #1A4631;
+      --col:       680px;
     }
 
     html { font-size: 16px; }
@@ -44,28 +45,12 @@
       padding: 0 24px;
     }
 
-    /* ── watermark ───────────────────────────── */
-    .watermark {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: clamp(80px, 15vw, 172px);
-      color: var(--rule);
-      white-space: nowrap;
-      pointer-events: none;
-      user-select: none;
-      letter-spacing: -0.02em;
-      z-index: 0;
-    }
 
-    main, footer { position: relative; z-index: 1; }
 
     /* ── header ──────────────────────────────── */
     header {
       padding-top: 80px;
-      padding-bottom: 56px;
+      padding-bottom: 48px;
     }
 
     .group-label {
@@ -115,10 +100,44 @@
       margin-bottom: 18px;
     }
 
-    /* ── coming soon ─────────────────────────── */
-    .coming-soon {
-      padding: 48px 0;
+    /* ── tabs ────────────────────────────────── */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 0;
     }
+
+    .tab-btn {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 14px 20px 12px;
+      cursor: pointer;
+      margin-bottom: -1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .tab-btn:first-child { padding-left: 0; }
+
+    .tab-btn:hover { color: var(--ink-2); }
+
+    .tab-btn.active {
+      color: var(--ink);
+      font-weight: 500;
+      border-bottom-color: var(--ink);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── coming soon ─────────────────────────── */
+    .coming-soon { padding: 48px 0; }
 
     .status-line {
       display: flex;
@@ -152,13 +171,9 @@
     }
 
     /* ── team ────────────────────────────────── */
-    .team {
-      padding: 48px 0 88px;
-    }
+    .team { padding: 48px 0 80px; }
 
-    .team-list {
-      list-style: none;
-    }
+    .team-list { list-style: none; }
 
     .team-member {
       display: grid;
@@ -169,9 +184,7 @@
       border-bottom: 1px solid var(--rule);
     }
 
-    .team-member:first-child {
-      border-top: 1px solid var(--rule);
-    }
+    .team-member:first-child { border-top: 1px solid var(--rule); }
 
     .member-name {
       font-family: 'Instrument Serif', Georgia, serif;
@@ -197,6 +210,127 @@
       white-space: nowrap;
     }
 
+    /* ── publications ────────────────────────── */
+    .publications { padding: 40px 0 80px; }
+
+    .pub-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .pub-item {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .pub-item:first-child { border-top: 1px solid var(--rule); }
+
+    .pub-card {
+      border: 1px solid var(--card-border);
+      padding: 14px 16px 12px;
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+    }
+
+    .pub-item:not(.highlighted) .pub-card {
+      border-color: transparent;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    /* image + text side by side */
+    .pub-card-body {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .pub-thumb {
+      width: 100px;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      flex-shrink: 0;
+      box-shadow: 3px 3px 0px 0px rgb(0, 0, 0);
+    }
+
+    .pub-card-content { min-width: 0; }
+
+    .pub-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .pub-title {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.45;
+      flex: 1;
+    }
+
+    .pub-venue {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .pub-venue strong {
+      color: var(--ink-2);
+      font-weight: 500;
+    }
+
+    .pub-authors {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+
+    .pub-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pub-link {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+      text-decoration: none;
+      border: 1px solid var(--ink);
+      padding: 2px 7px;
+      display: inline-block;
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .pub-link:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    @media (max-width: 480px) {
+      .pub-card-body { grid-template-columns: 1fr; }
+      .pub-thumb { width: 100%; height: auto; border-radius: 8px; }
+    }
+
     /* ── footer ──────────────────────────────── */
     footer {
       border-top: 1px solid var(--rule);
@@ -213,9 +347,12 @@
     }
 
     /* ── responsive ──────────────────────────── */
-    @media (max-width: 480px) {
+    @media (max-width: 520px) {
       .team-member { grid-template-columns: 1fr; }
       .member-affil { text-align: left; }
+      .pub-card-header { flex-direction: column; gap: 3px; }
+      .pub-venue { white-space: normal; }
+      .tab-btn { padding: 14px 14px 12px; font-size: 11px; }
     }
 
     @media (prefers-reduced-motion: no-preference) {
@@ -226,9 +363,7 @@
 </head>
 <body>
 
-  <div class="watermark" aria-hidden="true"></div>
-
-  <main>
+<main>
 
     <header>
       <p class="group-label">Imperial College London</p>
@@ -238,37 +373,343 @@
 
     <hr />
 
-    <section class="coming-soon">
-      <p class="section-label">Status</p>
-      <div class="status-line">
-        <span class="dot"></span>
-        <span class="status-text">Website coming soon</span>
-      </div>
-      <p class="status-note">We're building this page. Check back shortly for publications, projects, and more.</p>
-    </section>
+    <!-- ── tabs ── -->
+    <nav class="tabs" role="tablist">
+      <button class="tab-btn active" role="tab" aria-selected="true"  onclick="switchTab('overview')">Overview</button>
+      <button class="tab-btn"        role="tab" aria-selected="false" onclick="switchTab('publications')">Publications</button>
+    </nav>
 
-    <hr />
+    <!-- ── overview panel ── -->
+    <div id="tab-overview" class="tab-panel active">
 
-    <section class="team">
-      <p class="section-label">Team</p>
-      <ul class="team-list">
+      <section class="coming-soon">
+        <p class="section-label">Status</p>
+        <div class="status-line">
+          <span class="status-text">Website coming soon</span>
+        </div>
+        <p>We're building this page. Check back shortly for publications, projects, and more.</p>
+      </section>
 
-        <li class="team-member">
-          <div>
-            <p class="member-name">Rolandos Alexandros Potamias</p>
-            <p class="member-role">Principal Investigator</p>
-          </div>
-          <p class="member-affil">Imperial College London</p>
-        </li>
+      <hr />
 
-      </ul>
-    </section>
+      <section class="team">
+        <p class="section-label">Team</p>
+        <ul class="team-list">
+          <li class="team-member">
+            <div>
+              <p class="member-name">Rolandos Alexandros Potamias</p>
+              <p class="member-role">Principal Investigator · Assistant Professor</p>
+            </div>
+            <p class="member-affil">Imperial College London</p>
+          </li>
+        </ul>
+      </section>
+
+    </div><!-- /overview -->
+
+    <div id="tab-publications" class="tab-panel">
+      <section class="publications">
+        <ul class="pub-list">
+
+          <!-- UniMorphGrasp — highlighted -->
+          <li class="pub-item highlighted">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/unimorphgrasp.gif" class="pub-thumb" alt="UniMorphGrasp teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">UniMorphGrasp: Diffusion Model with Morphology-Awareness for Cross-Embodiment Dexterous Grasp Generation</span>
+                    <span class="pub-venue">arXiv 2026</span>
+                  </div>
+                  <p class="pub-authors">Zhiyuan Wu, Xiangyu Zhang, Zhuo Chen, Jiankang Deng, Shan Luo, Rolandos Alexandros Potamias</p>
+                  <div class="pub-links">
+                    <a href="https://georgewuzy.github.io/UniMorphGrasp-website/" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2602.00915" class="pub-link">pdf</a>
+                    <a href="https://github.com/pabloruizponce/Interact2Ar" class="pub-link">code</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- Interact2Ar — highlighted -->
+          <li class="pub-item highlighted">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/interact2ar.webp" class="pub-thumb" alt="Interact2Ar teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">Interact2Ar: Full-Body Human-Human Interaction Generation via Autoregressive Diffusion Models</span>
+                    <span class="pub-venue"><strong>CVPR</strong> 2026</span>
+                  </div>
+                  <p class="pub-authors">Pablo Ruiz-Ponce, Sergio Escalera, José García-Rodríguez, Jiankang Deng, Rolandos Alexandros Potamias</p>
+                  <div class="pub-links">
+                    <a href="https://pabloruizponce.com/papers/Interact2Ar" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2512.19692" class="pub-link">pdf</a>
+                    <a href="https://github.com/pabloruizponce/Interact2Ar" class="pub-link">code</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- EgoPointVQA -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/egopointvqa.png" class="pub-thumb" alt="EgoPointVQA teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">Do You See What I Am Pointing At? Gesture-Based Egocentric Video Question Answering</span>
+                    <span class="pub-venue"><strong>CVPR</strong> 2026</span>
+                  </div>
+                  <p class="pub-authors">Yura Choi, Roy Miles, Rolandos Alexandros Potamias, Ismail Elezi, Jiankang Deng, Stefanos Zafeiriou</p>
+                  <div class="pub-links">
+                    <a href="https://yuuraa.github.io/papers/choi2026egovqa/" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2603.12533" class="pub-link">pdf</a>
+                    <a href="https://github.com/Yuuraa/EgoPointVQA" class="pub-link">code</a>
+                    <a href="https://github.com/Yuuraa/EgoPointVQA" class="pub-link">data</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- CEDex -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/cedex.gif" class="pub-thumb" alt="CEDex teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">CEDex: Cross-Embodiment Dexterous Grasp Generation at Scale from Human-like Contact Representations</span>
+                    <span class="pub-venue"><strong>ICRA</strong> 2026</span>
+                  </div>
+                  <p class="pub-authors">Zhiyuan Wu, Rolandos Alexandros Potamias, Xuyang Zhang, Zhongqun Zhang, Jiankang Deng, Shan Luo</p>
+                  <div class="pub-links">
+                    <a href="https://georgewuzy.github.io/cedex-website/" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2509.24661" class="pub-link">pdf</a>
+                    <a href="https://github.com/GeorgeWuzy/CEDex-Grasp" class="pub-link">code</a>
+                    <a href="https://github.com/GeorgeWuzy/CEDex-Grasp?tab=readme-ov-file#data-preparation" class="pub-link">data</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+
+          <!-- VTimeCoT -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/vtimecot.png" class="pub-thumb" alt="VTimeCoT teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">VTimeCoT: Thinking by Drawing for Video Temporal Grounding and Reasoning</span>
+                    <span class="pub-venue"><strong>ICCV</strong> 2025</span>
+                  </div>
+                  <p class="pub-authors">Jinglei Zhang, Yuanfan Guo, Rolandos Alexandros Potamias, Jiankang Deng, Hang Xu, Chao Ma</p>
+                  <div class="pub-links">
+                    <a href="https://vtimecot.github.io/" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2512.13247" class="pub-link">pdf</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- HORT -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/hort.png" class="pub-thumb" alt="HORT teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">HORT: Monocular Hand-held Objects Reconstruction with Transformers</span>
+                    <span class="pub-venue"><strong>ICCV</strong> 2025</span>
+                  </div>
+                  <p class="pub-authors">Zerui Chen, Rolandos Alexandros Potamias, Shizhe Chen, Cordelia Schmid</p>
+                  <div class="pub-links">
+                    <a href="https://zerchen.github.io/projects/hort.html" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2503.21313" class="pub-link">pdf</a>
+                    <a href="https://github.com/zerchen/hort/" class="pub-link">code</a>
+                    <a href="https://huggingface.co/spaces/zerchen/HORT" class="pub-link">demo</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- WiLoR — highlighted -->
+          <li class="pub-item highlighted">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/wilor.png" class="pub-thumb" alt="WiLoR teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">WiLoR: End-to-end 3D hand localization and reconstruction in-the-wild</span>
+                    <span class="pub-venue"><strong>CVPR</strong> 2025</span>
+                  </div>
+                  <p class="pub-authors">Rolandos Alexandros Potamias, Jinglei Zhang, Jiankang Deng, Stefanos Zafeiriou</p>
+                  <div class="pub-links">
+                    <a href="./WiLoR/index.html" class="pub-link">project</a>
+                    <a href="https://rolpotamias.github.io/pdfs/WiLoR.pdf" class="pub-link">pdf</a>
+                    <a href="https://github.com/rolpotamias/WiLoR" class="pub-link">code</a>
+                    <a href="https://huggingface.co/spaces/rolpotamias/WiLoR" class="pub-link">demo</a>
+                    <a href="https://huggingface.co/datasets/rolpotamias/WHIM" class="pub-link">data</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- HaWoR — highlighted -->
+          <li class="pub-item highlighted">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/hawor.gif" class="pub-thumb" alt="HaWoR teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">HaWoR: World-Space Hand Motion Reconstruction from Egocentric Videos</span>
+                    <span class="pub-venue"><strong>CVPR</strong> 2025 <span style="color:var(--ink);font-weight:500">(Highlight)</span></span>
+                  </div>
+                  <p class="pub-authors">Jinglei Zhang, Jiankang Deng, Chao Ma, Rolandos Alexandros Potamias</p>
+                  <div class="pub-links">
+                    <a href="https://hawor-project.github.io/" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2501.02973" class="pub-link">pdf</a>
+                    <a href="https://github.com/ThunderVVV/HaWoR" class="pub-link">code</a>
+                    <a href="https://huggingface.co/spaces/ThunderVVV/HaWoR" class="pub-link">demo</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+
+          <!-- Signs as Tokens -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/soke.png" class="pub-thumb" alt="Signs as Tokens teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">Signs as Tokens: An Autoregressive Multilingual Sign Language Generator</span>
+                    <span class="pub-venue"><strong>ICCV</strong> 2025</span>
+                  </div>
+                  <p class="pub-authors">Ronglai Zuo, Rolandos Alexandros Potamias, Evangelos Ververas, Jiankang Deng, Stefanos Zafeiriou</p>
+                  <div class="pub-links">
+                    <a href="https://2000zrl.github.io/soke/" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2411.17799" class="pub-link">pdf</a>
+                    <a href="https://2000zrl.github.io/soke/" class="pub-link">code</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- SAGS -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/sags.gif" class="pub-thumb" alt="SAGS teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">SAGS: Structure-Aware 3D Gaussian Splatting</span>
+                    <span class="pub-venue"><strong>ECCV</strong> 2024</span>
+                  </div>
+                  <p class="pub-authors">Evangelos Ververas, Rolandos Alexandros Potamias, Jifei Song, Jiankang Deng, Stefanos Zafeiriou</p>
+                  <div class="pub-links">
+                    <a href="https://eververas.github.io/SAGS/" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2404.19149" class="pub-link">pdf</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+
+          <!-- Design2Cloth -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/design2cloth.png" class="pub-thumb" alt="Design2Cloth teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">Design2Cloth: 3D Cloth Generation from 2D Masks</span>
+                    <span class="pub-venue"><strong>CVPR</strong> 2024</span>
+                  </div>
+                  <p class="pub-authors">Jiali Zheng, Rolandos Alexandros Potamias, Stefanos Zafeiriou</p>
+                  <div class="pub-links">
+                    <a href="https://jiali-zheng.github.io/Design2Cloth/" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2404.02686.pdf" class="pub-link">pdf</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- Neural Sign Actors -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/neural_sign_actors.png" class="pub-thumb" alt="Neural Sign Actors teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">Neural Sign Actors: A diffusion model for 3D sign language production from text</span>
+                    <span class="pub-venue"><strong>CVPR</strong> 2024</span>
+                  </div>
+                  <p class="pub-authors">Vasileios Baltatzis, Rolandos Alexandros Potamias, Evangelos Ververas, Guanxiong Sun, Jiankang Deng, Stefanos Zafeiriou</p>
+                  <div class="pub-links">
+                    <a href="https://baltatzisv.github.io/neural-sign-actors/" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2312.02702.pdf" class="pub-link">pdf</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- Handy -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/handy.png" class="pub-thumb" alt="Handy teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">Handy: Towards a high fidelity 3D hand shape and appearance model</span>
+                    <span class="pub-venue"><strong>CVPR</strong> 2023</span>
+                  </div>
+                  <p class="pub-authors">Rolandos Alexandros Potamias, Stylianos Ploumpis, Stylianos Moschoglou, Vasileios Triantafyllou, Stefanos Zafeiriou</p>
+                  <div class="pub-links">
+                    <a href="https://rolpotamias.github.io/Handy/" class="pub-link">project</a>
+                    <a href="https://openaccess.thecvf.com/content/CVPR2023/papers/Potamias_Handy_Towards_a_High_Fidelity_3D_Hand_Shape_and_Appearance_CVPR_2023_paper.pdf" class="pub-link">pdf</a>
+                    <a href="https://github.com/rolpotamias/handy" class="pub-link">code</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </section>
+    </div><!-- /publications -->
 
   </main>
 
   <footer>
     <p class="footer-text">© 2026 DexLab · Imperial College London</p>
   </footer>
+
+  <script>
+    function switchTab(name) {
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('onclick').includes(name));
+        b.setAttribute('aria-selected', b.getAttribute('onclick').includes(name));
+      });
+      document.querySelectorAll('.tab-panel').forEach(p => {
+        p.classList.toggle('active', p.id === 'tab-' + name);
+      });
+    }
+  </script>
 
 </body>
 </html>
