@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FAF7F0" />
+  <title>DexLab — Imperial College London</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* exact pi.ai colors */
+      --bg:        #FAF3EA;   /* pi.ai body background rgb(250,243,234) */
+      --ink:       #1A4631;   /* pi.ai heading color rgb(26,70,49) — deep forest green */
+      --ink-2:     #3D6B54;   /* lighter green for secondary text */
+      --muted:     #8AAB97;   /* muted green-grey for labels */
+      --rule:      #E8DDD0;   /* slightly deeper than bg for hairlines */
+      --col:       580px;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 400;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── layout ─────────────────────────────── */
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: var(--col);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── watermark ───────────────────────────── */
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(80px, 15vw, 172px);
+      color: var(--rule);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.02em;
+      z-index: 0;
+    }
+
+    main, footer { position: relative; z-index: 1; }
+
+    /* ── header ──────────────────────────────── */
+    header {
+      padding-top: 80px;
+      padding-bottom: 56px;
+    }
+
+    .group-label {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(30px, 5.5vw, 44px);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    .tagline {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink-2);
+      max-width: 400px;
+      line-height: 1.7;
+    }
+
+    /* ── divider ─────────────────────────────── */
+    hr {
+      border: none;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ── section label ───────────────────────── */
+    .section-label {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    /* ── coming soon ─────────────────────────── */
+    .coming-soon {
+      padding: 48px 0;
+    }
+
+    .status-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .status-text {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink);
+    }
+
+    .status-note {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--muted);
+      margin-top: 10px;
+      padding-left: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── team ────────────────────────────────── */
+    .team {
+      padding: 48px 0 88px;
+    }
+
+    .team-list {
+      list-style: none;
+    }
+
+    .team-member {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .team-member:first-child {
+      border-top: 1px solid var(--rule);
+    }
+
+    .member-name {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 2px;
+    }
+
+    .member-role {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+    }
+
+    .member-affil {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* ── footer ──────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── responsive ──────────────────────────── */
+    @media (max-width: 480px) {
+      .team-member { grid-template-columns: 1fr; }
+      .member-affil { text-align: left; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      main { animation: fadein 0.5s ease both; }
+      @keyframes fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="watermark" aria-hidden="true"></div>
+
+  <main>
+
+    <header>
+      <p class="group-label">Imperial College London</p>
+      <h1>DexLab</h1>
+      <p class="tagline">A short sentence describing what you study, who you are, and what drives your work.</p>
+    </header>
+
+    <hr />
+
+    <section class="coming-soon">
+      <p class="section-label">Status</p>
+      <div class="status-line">
+        <span class="dot"></span>
+        <span class="status-text">Website coming soon</span>
+      </div>
+      <p class="status-note">We're building this page. Check back shortly for publications, projects, and more.</p>
+    </section>
+
+    <hr />
+
+    <section class="team">
+      <p class="section-label">Team</p>
+      <ul class="team-list">
+
+        <li class="team-member">
+          <div>
+            <p class="member-name">Rolandos Alexandros Potamias</p>
+            <p class="member-role">Principal Investigator</p>
+          </div>
+          <p class="member-affil">Imperial College London</p>
+        </li>
+
+      </ul>
+    </section>
+
+  </main>
+
+  <footer>
+    <p class="footer-text">© 2026 DexLab · Imperial College London</p>
+  </footer>
+
+</body>
+</html>
