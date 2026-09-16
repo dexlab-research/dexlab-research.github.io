@@ -173,41 +173,54 @@
     /* ── team ────────────────────────────────── */
     .team { padding: 48px 0 80px; }
 
-    .team-list { list-style: none; }
-
-    .team-member {
+    /* ── member photo grid ───────────────────── */
+    .member-grid {
       display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: baseline;
-      gap: 16px;
-      padding: 18px 0;
-      border-bottom: 1px solid var(--rule);
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 20px;
+      margin-top: 12px;
     }
 
-    .team-member:first-child { border-top: 1px solid var(--rule); }
-
-    .member-name {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 16px;
-      font-weight: 400;
-      color: var(--ink);
-      margin-bottom: 2px;
+    .member-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      gap: 8px;
     }
 
-    .member-role {
+    a.member-card:hover .member-photo {
+      box-shadow: 3px 3px 0px 0px rgb(0,0,0);
+    }
+
+    a.member-card:hover .member-card-name {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .member-photo {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      transition: box-shadow 0.15s;
+    }
+
+    .member-card-name {
       font-family: 'Inter', system-ui, sans-serif;
       font-size: 12px;
-      font-weight: 300;
-      color: var(--muted);
-      letter-spacing: 0.01em;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.3;
     }
 
-    .member-affil {
+    .member-card-role {
       font-family: 'Inter', system-ui, sans-serif;
       font-size: 11px;
-      font-weight: 400;
+      font-weight: 300;
       color: var(--muted);
-      white-space: nowrap;
     }
 
     /* ── publications ────────────────────────── */
@@ -348,8 +361,6 @@
 
     /* ── responsive ──────────────────────────── */
     @media (max-width: 520px) {
-      .team-member { grid-template-columns: 1fr; }
-      .member-affil { text-align: left; }
       .pub-card-header { flex-direction: column; gap: 3px; }
       .pub-venue { white-space: normal; }
       .tab-btn { padding: 14px 14px 12px; font-size: 11px; }
@@ -385,27 +396,109 @@
       <section class="coming-soon">
         <p class="section-label">Status</p>
         <div class="status-line">
+          <span class="dot"></span>
           <span class="status-text">Website coming soon</span>
         </div>
-        <p>We're building this page. Check back shortly for publications, projects, and more.</p>
+        <p class="status-note">We're building this page. Check back shortly for publications, projects, and more.</p>
       </section>
 
       <hr />
 
       <section class="team">
-        <p class="section-label">Team</p>
-        <ul class="team-list">
-          <li class="team-member">
-            <div>
-              <p class="member-name">Rolandos Alexandros Potamias</p>
-              <p class="member-role">Principal Investigator · Assistant Professor</p>
-            </div>
-            <p class="member-affil">Imperial College London</p>
-          </li>
-        </ul>
+        <p class="section-label">Members</p>
+        <div class="member-grid" style="margin-top:12px;">
+
+          <a href="https://rolpotamias.github.io" class="member-card">
+            <img src="https://rolpotamias.github.io/images/photo.jpg" alt="Rolandos Alexandros Potamias" class="member-photo" />
+            <p class="member-card-name">Rolandos Potamias</p>
+            <p class="member-card-role">Principal Investigator</p>
+          </a>
+
+          <a href="https://huangxuchuan.github.io" class="member-card">
+            <img src="https://huangxuchuan.github.io/images/portrait.jpg" alt="Xuchuan Huang" class="member-photo" />
+            <p class="member-card-name">Xuchuan Huang</p>
+            <p class="member-card-role">PhD Student</p>
+          </a>
+
+          <a href="https://redorangeyellowy.github.io" class="member-card">
+            <img src="https://redorangeyellowy.github.io/data/profile.jpg" alt="Junho Park" class="member-photo" />
+            <p class="member-card-name">Junho Park</p>
+            <p class="member-card-role">PhD Student</p>
+          </a>
+
+          <a href="https://scholar.google.com/citations?user=CaKafCMAAAAJ&hl=en" class="member-card">
+            <img src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=CaKafCMAAAAJ&citpid=3" alt="Chrysa Pratikaki" class="member-photo" />
+            <p class="member-card-name">Chrysa Pratikaki</p>
+            <p class="member-card-role">PhD Student</p>
+          </a>
+
+          <a href="https://yuuraa.github.io" class="member-card">
+            <img src="https://yuuraa.github.io/personal/londonbridge.jpg" alt="Yura Choi" class="member-photo" />
+            <p class="member-card-name">Yura Choi</p>
+            <p class="member-card-role">PhD Student</p>
+          </a>
+
+          <div class="member-card no-link">
+            <img src="https://media.licdn.com/dms/image/v2/D5603AQEEzAq4LJwoCg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1689454421990?e=1790812800&v=beta&t=ec_btDUMgHv0wwTHYfkxiM0E7NJXpnrpQBDZioLK_fM" alt="Justin Tien-Smith" class="member-photo" />
+            <p class="member-card-name">Justin Tien-Smith</p>
+            <p class="member-card-role">MSc Student</p>
+          </div>
+
+          <a href="https://mattpidden.github.io/portfolio" class="member-card">
+            <img src="https://mattpidden.github.io/portfolio/static/media/portraitpic.27e7d4eab8b99c9b3835.jpg" alt="Matthew Pidden" class="member-photo" />
+            <p class="member-card-name">Matthew Pidden</p>
+            <p class="member-card-role">MSc Student</p>
+          </a>
+
+          <a href="https://www.linkedin.com/in/vinay-udit-mohan/" class="member-card">
+            <img src="https://media.licdn.com/dms/image/v2/D5603AQHustWbLPhn3w/profile-displayphoto-crop_800_800/B56ZginxkWHUAI-/0/1752927510111?e=1790812800&v=beta&t=yaqbHIJdZBtfH5gYm16RepRG8TsK0Pf28bBRQIswPm8" alt="Vinay Mohan" class="member-photo" />
+            <p class="member-card-name">Vinay Mohan</p>
+            <p class="member-card-role">MSc Student</p>
+          </a>
+
+          <div class="member-card no-link">
+            <img src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=sF6_UQoAAAAJ&citpid=3" alt="Japjot Kaur Saggu" class="member-photo" />
+            <p class="member-card-name">Japjot Kaur Saggu</p>
+            <p class="member-card-role">MSc Student</p>
+          </div>
+
+          <div class="member-card no-link">
+            <img src="https://media.licdn.com/dms/image/v2/D4E03AQHUJAySPvnJ3w/profile-displayphoto-crop_800_800/B4EZ5haX9zKYAI-/0/1779750764639?e=1790812800&v=beta&t=MQUlgK990K7l70N6zhddnTwgq1iijKUslc-Txo0nRgE" alt="Junhan Xue" class="member-photo" />
+            <p class="member-card-name">Junhan Xue</p>
+            <p class="member-card-role">MSc Student</p>
+          </div>
+
+        </div>
       </section>
 
-    </div><!-- /overview -->
+      <hr />
+
+      <section class="team" style="padding-bottom: 80px;">
+        <p class="section-label">Collaborators</p>
+        <div class="member-grid" style="margin-top:12px;">
+
+          <div class="member-card no-link">
+            <img src="https://jiankangdeng.github.io/assets/img/team/EvangelosVerveras-800.webp" alt="Evangelos Ververas" class="member-photo" />
+            <p class="member-card-name">Evangelos Ververas</p>
+          </div>
+
+          <div class="member-card no-link">
+            <img src="https://jiankangdeng.github.io/assets/img/team/RonglaiZuo-800.webp" alt="Ronglai Zuo" class="member-photo" />
+            <p class="member-card-name">Ronglai Zuo</p>
+          </div>
+
+          <div class="member-card no-link">
+            <img src="https://jiankangdeng.github.io/assets/img/team/ZeruiChen-800.webp" alt="Zerui Chen" class="member-photo" />
+            <p class="member-card-name">Zerui Chen</p>
+          </div>
+
+          <div class="member-card no-link">
+            <img src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=JkRlsiQAAAAJ&citpid=2" alt="Konstantinos Barmpas" class="member-photo" />
+            <p class="member-card-name">Konstantinos Barmpas</p>
+          </div>
+
+        </div>
+      </section>
 
     <div id="tab-publications" class="tab-panel">
       <section class="publications">
@@ -419,7 +512,7 @@
                 <div class="pub-card-content">
                   <div class="pub-card-header">
                     <span class="pub-title">UniMorphGrasp: Diffusion Model with Morphology-Awareness for Cross-Embodiment Dexterous Grasp Generation</span>
-                    <span class="pub-venue">arXiv 2026</span>
+                    <span class="pub-venue"><strong>CoRL</strong> 2026</span>
                   </div>
                   <p class="pub-authors">Zhiyuan Wu, Xiangyu Zhang, Zhuo Chen, Jiankang Deng, Shan Luo, Rolandos Alexandros Potamias</p>
                   <div class="pub-links">
@@ -497,6 +590,26 @@
             </div>
           </li>
 
+          <!-- STARCaster -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/starcaster.png" class="pub-thumb" alt="STARCaster teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">STARCaster: Spatio-Temporal AutoRegressive Video Diffusion for Identity- and View-Aware Talking Portraits</span>
+                    <span class="pub-venue"><strong>ICML</strong> 2026</span>
+                  </div>
+                  <p class="pub-authors">Foivos Paraperas Papantoniou, Stathis Galanakis, Rolandos Alexandros Potamias, Bernhard Kainz, Stefanos Zafeiriou</p>
+                  <div class="pub-links">
+                    <a href="https://foivospar.github.io/STARCaster/" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2512.13247" class="pub-link">pdf</a>
+                    <a href="https://github.com/foivospar/STARCaster" class="pub-link">code</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
 
           <!-- VTimeCoT -->
           <li class="pub-item">
@@ -585,6 +698,47 @@
             </div>
           </li>
 
+          <!-- ZeroGS -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/zerogs.gif" class="pub-thumb" alt="ZeroGS teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">ZeroGS: Training 3D Gaussian Splatting from Unposed Images</span>
+                    <span class="pub-venue"><strong>NeurIPS</strong> 2025</span>
+                  </div>
+                  <p class="pub-authors">Yu Chen, Rolandos Alexandros Potamias, Evangelos Ververas, Jifei Song, Jiankang Deng, Gim Hee Lee</p>
+                  <div class="pub-links">
+                    <a href="https://aibluefisher.github.io/ZeroGS/" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2411.15779" class="pub-link">pdf</a>
+                    <a href="https://github.com/aibluefisher/ZeroGS" class="pub-link">code</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- Arc2Avatar -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/cillian.gif" class="pub-thumb" alt="Arc2Avatar teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">Arc2Avatar: Generating Expressive 3D Avatars from a Single Image via ID Guidance</span>
+                    <span class="pub-venue"><strong>CVPR</strong> 2025</span>
+                  </div>
+                  <p class="pub-authors">Dimitrios Gerogiannis, Foivos Paraperas Papantoniou, Rolandos Alexandros Potamias, Alexandros Lattas, Stefanos Zafeiriou</p>
+                  <div class="pub-links">
+                    <a href="https://arc2avatar.github.io/" class="pub-link">project</a>
+                    <a href="https://arxiv.org/abs/2501.05379" class="pub-link">pdf</a>
+                    <a href="https://github.com/dimgerogiannis" class="pub-link">code</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
 
           <!-- Signs as Tokens -->
           <li class="pub-item">
@@ -627,6 +781,44 @@
             </div>
           </li>
 
+          <!-- ShapeFusion -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/shapefusion.png" class="pub-thumb" alt="ShapeFusion teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">ShapeFusion: A 3D diffusion model for localized shape editing</span>
+                    <span class="pub-venue"><strong>ECCV</strong> 2024</span>
+                  </div>
+                  <p class="pub-authors">Rolandos Alexandros Potamias, Michail Tarasiou, Stylianos Ploumpis, Stefanos Zafeiriou</p>
+                  <div class="pub-links">
+                    <a href="./Shapefusion/index.html" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2403.19773.pdf" class="pub-link">pdf</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- AnimateMe -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/animateme.png" class="pub-thumb" alt="AnimateMe teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">AnimateMe: 4D Facial Expressions via Diffusion Models</span>
+                    <span class="pub-venue"><strong>ECCV</strong> 2024</span>
+                  </div>
+                  <p class="pub-authors">Dimitrios Gerogiannis, Foivos Paraperas Papantoniou, Rolandos Alexandros Potamias, Alexandros Lattas, Stylianos Moschoglou, Stylianos Ploumpis, Stefanos Zafeiriou</p>
+                  <div class="pub-links">
+                    <a href="https://arxiv.org/pdf/2403.17213" class="pub-link">pdf</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
 
           <!-- Design2Cloth -->
           <li class="pub-item">
@@ -662,6 +854,68 @@
                   <div class="pub-links">
                     <a href="https://baltatzisv.github.io/neural-sign-actors/" class="pub-link">project</a>
                     <a href="https://arxiv.org/pdf/2312.02702.pdf" class="pub-link">pdf</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- LAMM -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/lamm.png" class="pub-thumb" alt="LAMM teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">Locally Adaptive Neural 3D Morphable Models</span>
+                    <span class="pub-venue"><strong>CVPR</strong> 2024</span>
+                  </div>
+                  <p class="pub-authors">Michail Tarasiou, Rolandos Alexandros Potamias, Eimear O'Sullivan, Stylianos Ploumpis, Stefanos Zafeiriou</p>
+                  <div class="pub-links">
+                    <a href="https://github.com/michaeltrs/LAMM" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2401.02937.pdf" class="pub-link">pdf</a>
+                    <a href="https://github.com/michaeltrs/LAMM" class="pub-link">code</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- MICCAI -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/miccai.png" class="pub-thumb" alt="Brain age teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">Multimodal brain age estimation using interpretable adaptive population-graph learning</span>
+                    <span class="pub-venue"><strong>MICCAI</strong> 2023</span>
+                  </div>
+                  <p class="pub-authors">Kyriaki-Margarita Bintsi, Vasileios Baltatzis, Rolandos Alexandros Potamias, Alexander Hammers, Daniel Rueckert</p>
+                  <div class="pub-links">
+                    <a href="https://github.com/bintsi/adaptive-graph-learning" class="pub-link">project</a>
+                    <a href="https://arxiv.org/pdf/2307.04639.pdf" class="pub-link">pdf</a>
+                    <a href="https://github.com/bintsi/adaptive-graph-learning" class="pub-link">code</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- ILSH -->
+          <li class="pub-item">
+            <div class="pub-card">
+              <div class="pub-card-body">
+                <img src="https://rolpotamias.github.io/images/NeRF_Challenge.png" class="pub-thumb" alt="ILSH teaser" />
+                <div class="pub-card-content">
+                  <div class="pub-card-header">
+                    <span class="pub-title">ILSH: The Imperial Light-Stage Head Dataset for Human Head View Synthesis</span>
+                    <span class="pub-venue"><strong>ICCV</strong> 2023</span>
+                  </div>
+                  <p class="pub-authors">Jiali Zheng, Youngkyoon Jang, Athanasios Papaioannou, Christos Kampouris, Rolandos Alexandros Potamias, Foivos Paraperas Papantoniou, Efstathios Galanakis, Ales Leonardis, Stefanos Zafeiriou</p>
+                  <div class="pub-links">
+                    <a href="https://sites.google.com/view/vschh/home" class="pub-link">project</a>
+                    <a href="https://openaccess.thecvf.com/content/ICCV2023W/RHWC/papers/Zheng_ILSH_The_Imperial_Light-Stage_Head_Dataset_for_Human_Head_View_ICCVW_2023_paper.pdf" class="pub-link">pdf</a>
                   </div>
                 </div>
               </div>
